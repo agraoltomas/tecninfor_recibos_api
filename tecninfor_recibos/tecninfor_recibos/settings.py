@@ -15,6 +15,10 @@ import os
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
+from dotenv import load_dotenv
+project_folder = os.path.abspath("./tecninfor_recibos")
+load_dotenv(os.path.join(project_folder,'.env'))
+
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
@@ -25,7 +29,8 @@ SECRET_KEY = 'grdkx=u=z1_1rrgh0_y%4j2ad65o5614lqju5xm8n_7r1^54o8'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+
+ALLOWED_HOSTS = '*'
 
 
 # Application definition
@@ -37,6 +42,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'tecninfor_recibos',
+    'recibos',
 ]
 
 MIDDLEWARE = [
@@ -74,9 +81,13 @@ WSGI_APPLICATION = 'tecninfor_recibos.wsgi.application'
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
 DATABASES = {
+    # ('mysql+mysqldb://selector:selector123@localhost/tecninfor_pwd')
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.mysql',
+        'USER':'selector',
+        'PASSWORD':os.getenv("DB_PASSWORD"),
+        'HOST':'localhost',
+        'NAME':'tecninfor_pwd'
     }
 }
 
