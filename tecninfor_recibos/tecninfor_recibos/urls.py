@@ -28,5 +28,6 @@ urlpatterns = [
     path(f'{BASIC_URL}admin/', admin.site.urls),
     path(f'{BASIC_URL}recibos/',include("recibos.urls")),
     path(f'{BASIC_URL}fechas/',include("fechas.urls")),
+    path(f'{BASIC_URL}login/',include('login.urls')),
 
 ]
