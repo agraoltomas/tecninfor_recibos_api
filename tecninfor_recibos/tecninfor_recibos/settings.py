@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'rest_framework',
     'tecninfor_recibos',
     'recibos',
 ]
@@ -86,7 +87,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'USER':'selector',
         'PASSWORD':os.getenv("DB_PASSWORD"),
-        'HOST':'localhost',
+        'HOST':'192.168.0.138',
         'NAME':'tecninfor_pwd'
     }
 }
