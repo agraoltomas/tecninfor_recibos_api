@@ -1,5 +1,7 @@
 from rest_framework.views import APIView
 from rest_framework.response import Response
+from rest_framework import status
+
 from tecninfor_recibos.models import Recibos
 from recibos.serializers import ReciboDataSerializer,ReciboBytesSerializer
 # Create your views here.
@@ -33,4 +35,11 @@ class RecibosByCuil(APIView):
         recibos = self.queryset.filter(cuil=cuil).only("cuil","periodo","tipo")
         serializer = self.serializer_class(recibos,many=True)
         return Response(serializer.data)
+
+class RecibosByCuilCount(APIView):
+    queryset = Recibos.objects
+
+    def get(self,request,cuil,format=None):
+        recibos = self.queryset.filter(cuil=cuil).count()
+        return Response({'count':recibos},status=status.HTTP_200_OK)
 

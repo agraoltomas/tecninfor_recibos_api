@@ -18,12 +18,15 @@ from django.urls import path,include
 
 import tecninfor_recibos.views as trecibos_views
 import recibos.views as recibos_views
+import fechas.views as fechas_views
+
+BASIC_URL = "api/v1/resources/"
 
 urlpatterns = [
-    path('api/v1/resources/admin/', admin.site.urls),
-    path('api/v1/resources/empleado/',trecibos_views.EmpleadoList.as_view(),name="empleados"),
-    path('api/v1/resources/empleado/<int:cuil>',trecibos_views.EmpleadoDetail.as_view(),name="empleado"),
-    path('api/v1/resources/empleado/<int:cuil>/recibos',recibos_views.RecibosByCuil.as_view(),name="empleado_recibos"),
-    path('recibos/',include("recibos.urls")),
-    path('api/v1/resources/',trecibos_views.api_root,name="apiroot"),
+    path(f'{BASIC_URL}',trecibos_views.api_root,name="apiroot"),
+    path(f'{BASIC_URL}empleado/',include('empleado.urls')),
+    path(f'{BASIC_URL}admin/', admin.site.urls),
+    path(f'{BASIC_URL}recibos/',include("recibos.urls")),
+    path(f'{BASIC_URL}fechas/',include("fechas.urls")),
+
 ]
