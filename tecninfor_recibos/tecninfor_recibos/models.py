@@ -6,7 +6,7 @@
 #   * Remove `managed = False` lines if you wish to allow Django to create, modify, and delete the table
 # Feel free to rename the models, but don't rename db_table values or field names.
 from django.db import models
-
+from django.contrib.auth.models import BaseUserManager
 
 class Categoria(models.Model):
     categoria = models.CharField(primary_key=True, max_length=20)
@@ -50,22 +50,44 @@ class Liquidaciones(models.Model):
         managed = False
         db_table = 'liquidaciones'
 
+class UserAccountManager(BaseUserManager):
+    def create_user(self, cuil, nombre,apellido,username, password=None):
+        if not cuil:
+            raise ValueError('CUIL must be set!')
+        user = self.model(cuil=cuil, nombre=nombre,apellido=apellido,username=username)
+        user.set_password(password)
+        user.save(using=self._db)
+        return user
+
+    def create_superuser(self,cuil, nombre,apellido,username, password):
+        user = self.create_user(self,cuil,nombre,apellido,username,password)
+        user.is_admin = True
+        user.save(using=self._db)
+        return user
+
+    def get_by_natural_key(self, cuil_):
+        return self.get(cuil=cuil_)
 
 class Login(models.Model):
-    username = models.CharField(max_length=30, blank=True, null=True)
+
+    username = models.CharField(max_length=30, blank=False, null=True,unique=True)
     nombre = models.CharField(max_length=20, blank=True, null=True)
     apellido = models.CharField(max_length=30, blank=True, null=True)
-    salt = models.CharField(max_length=21, blank=True, null=True)
-    password = models.CharField(max_length=60, blank=True, null=True)
+    salt = models.CharField(max_length=21, blank=False, null=True)
+    password = models.CharField(max_length=60, blank=False, null=True)
     cuil = models.OneToOneField(Empleados, models.DO_NOTHING, db_column='cuil', primary_key=True)
     admin = models.IntegerField(blank=True, null=True)
     habilitado = models.IntegerField(blank=True, null=True)
     last_pwd_change = models.DateField(blank=True, null=True)
-
+    objects = UserAccountManager()
     class Meta:
         managed = False
         db_table = 'login'
 
+    is_anonymous = False
+    is_authenticated = True
+    REQUIRED_FIELDS = ['salt','password','username']
+    USERNAME_FIELD = 'cuil'
 
 class NivelFechas(models.Model):
     nivel = models.IntegerField(blank=True, null=True)

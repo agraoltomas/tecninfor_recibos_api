@@ -31,6 +31,7 @@ DEBUG = True
 
 
 ALLOWED_HOSTS = '*'
+CORS_ORIGIN_ALLOW_ALL = True
 
 
 # Application definition
@@ -43,10 +44,23 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
+    'rest_framework.authtoken',
     'tecninfor_recibos',
     'recibos',
     'corsheaders',
+    'login',
+    'fechas',
+    'empleado'
+
 ]
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSRS':[
+        'rest_framework.authentication.TokenAuthentication'
+    ]
+}
+
+AUTH_USER_MODEL ="tecninfor_recibos.Login"
+
 
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
@@ -58,6 +72,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+CORS_ORIGIN_ALLOW_ALL = True
 
 ROOT_URLCONF = 'tecninfor_recibos.urls'
 
@@ -132,3 +147,4 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATIC_URL = '/static/'
+
