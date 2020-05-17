@@ -62,11 +62,7 @@ REST_FRAMEWORK = {
 AUTH_USER_MODEL ="tecninfor_recibos.Login"
 
 
-<<<<<<< HEAD
-MIDDLEWARE = [ 
-=======
 MIDDLEWARE = [
->>>>>>> 0e511eee7eb836e21180b95156a9c69a34d583ee
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -76,6 +72,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
 CORS_ORIGIN_ALLOW_ALL = True
 
 ROOT_URLCONF = 'tecninfor_recibos.urls'
@@ -151,8 +148,3 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATIC_URL = '/static/'
-<<<<<<< HEAD
-CORS_ORIGIN_ALLOW_ALL = True
-=======
-
->>>>>>> 0e511eee7eb836e21180b95156a9c69a34d583ee
