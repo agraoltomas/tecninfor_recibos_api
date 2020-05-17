@@ -11,3 +11,6 @@ class LoginEmpleado(APIView):
         login_data = self.queryset.filter(cuil=cuil).first()
         serializer = self.class_serializer(login_data)
         return Response(serializer.data)
+
+# class LoginView():
+#

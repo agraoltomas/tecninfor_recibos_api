@@ -23,6 +23,7 @@ import fechas.views as fechas_views
 BASIC_URL = "api/v1/resources/"
 
 urlpatterns = [
+    path('',trecibos_views.redirect_root,name="root_redirect"),
     path(f'{BASIC_URL}',trecibos_views.api_root,name="apiroot"),
     path(f'{BASIC_URL}empleado/',include('empleado.urls')),
     path(f'{BASIC_URL}admin/', admin.site.urls),
