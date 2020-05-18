@@ -1,2 +1,4 @@
 .env
 tecninfor_recibos/.vscode/settings.json
+*.py[cod]
+__pycache__/
