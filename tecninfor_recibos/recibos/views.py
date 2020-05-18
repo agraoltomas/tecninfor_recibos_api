@@ -20,9 +20,8 @@ class RecibosDetail(APIView):
     serializer_class = ReciboDataSerializer
     queryset = Recibos.objects
 
-
     def get(self,request,pk,format=None):
-        recibo = self.queryset.get(pk)
+        recibo = self.queryset.get(id=pk)
         serializer = self.serializer_class(recibo)
         return Response(serializer.data)
 
@@ -32,7 +31,7 @@ class RecibosByCuil(APIView):
     queryset = Recibos.objects
 
     def get(self,request,cuil,format=None):
-        recibos = self.queryset.filter(cuil=cuil).only("cuil","periodo","tipo")
+        recibos = self.queryset.filter(cuil=cuil).order_by('-periodo').only("cuil","periodo","tipo")
         serializer = self.serializer_class(recibos,many=True)
         return Response(serializer.data)
 
@@ -43,3 +42,16 @@ class RecibosByCuilCount(APIView):
         recibos = self.queryset.filter(cuil=cuil).count()
         return Response({'count':recibos},status=status.HTTP_200_OK)
 
+class RecibosByteDetail(APIView):
+    queryset = Recibos.objects
+    serializer_class = ReciboBytesSerializer
+    def get(self,request,pk,format=None):
+        recibo = self.queryset.get(id=pk)
+
+        recibo_data = {
+            'id':recibo.id,
+            'cuil':recibo.cuil.cuil,
+            'bytes':recibo.bytes.decode()
+        }
+
+        return Response(recibo_data)

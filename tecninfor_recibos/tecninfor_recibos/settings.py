@@ -45,16 +45,16 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'rest_framework.authtoken',
+    'gunicorn',
     'tecninfor_recibos',
     'recibos',
     'corsheaders',
     'login',
     'fechas',
     'empleado'
-
 ]
 REST_FRAMEWORK = {
-    'DEFAULT_AUTHENTICATION_CLASSRS':[
+    'DEFAULT_AUTHENTICATION_CLASSES':[
         'rest_framework.authentication.TokenAuthentication'
     ]
 }

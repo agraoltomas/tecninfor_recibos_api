@@ -13,8 +13,20 @@ class FechasList(APIView):
     queryset = Fechas.objects
 
     def get(self,request,format=None):
-        fechas = self.queryset.all()
-        serializer = self.serializer_class(fechas,many=True)
+        
+        day = request.query_params.get("day",None)
+        month = request.query_params.get("month",None)
+        year = request.query_params.get("year",None)
+        fechas = self.queryset
+        if day:
+            fechas = fechas.filter(fecha__day=day)
+        if month:
+            fechas = fechas.filter(fecha__month=month)
+        if year:
+            fechas = fechas.filter(fecha__year=year)
+
+        serializer = self.serializer_class(fechas.all(),many=True)
+
         return Response(serializer.data)
 
 class FechasDetail(APIView):

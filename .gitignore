@@ -2,3 +2,5 @@
 tecninfor_recibos/.vscode/settings.json
 *.py[cod]
 __pycache__/
+*/__pycache__/
+tecninfor_recibos/tecninfor_recibos/__pycache__/settings.cpython-37.pyc
